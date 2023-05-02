@@ -6,7 +6,7 @@
  *
  * @a: integer to swap
  * @b: integer to swap
- * 
+ *
  * Return: Nothing
 */
 
