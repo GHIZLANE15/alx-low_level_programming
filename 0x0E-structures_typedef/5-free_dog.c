@@ -5,7 +5,7 @@
  * free_dog - frees yo dawgs
  * @d: yo dawg
  *
- * Return: void
+ * Return: void.
  */
 
 void free_dog(dog_t *d);
