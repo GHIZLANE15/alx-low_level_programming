@@ -1,22 +1,24 @@
 #include "lists.h"
 
 /**
- * pop_listint - deletes the head node of a linked list
+ * pop_listint - frees a list of ints
  * @head: adress of pointer to first node
  *
- * Return: value of propped node
+ * Return: void
  */
 
 int pop_listint(listint_t **head)
 {
-	if (!head || !(*head))
+	listint_t *temp;
+	int num;
+
+	if (!head || !*head)
 		return (0);
 
-	listint_t *temp = *head;
-	int num = temp->n;
-
-	*head = temp->next;
-	free(temp);
+	num = (*head)->n;
+	temp = (*head)->next;
+	free(*head);
+	*head = temp;
 
 	return (num);
 }
