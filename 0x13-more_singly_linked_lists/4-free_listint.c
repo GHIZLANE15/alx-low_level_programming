@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * free_listint - frees a list of ints
+ * free_listint - frees a lnked list
  * @head: listint_t list to be freed
  *
  * Return: void
@@ -9,12 +9,12 @@
 
 void free_listint(listint_t *head)
 {
-	listint_t *temp;
+	listint_t *node;
 
-	while (head != NULL)
+	while (head)
 	{
-		temp = head->next;
-		free(head);
-		head = temp;
+		node = head;
+		free(node);
+		head = head->next;
 	}
 }
