@@ -46,8 +46,8 @@ void close_file(int fd)
 
 /**
  * main - Copies the contents of a file to another file.
- * @argc: The number of arguments supplied to the program.
- * @argv: An array of pointers to the arguments.
+ * @ac: argument count
+ * @av: argument vector
  *
  * Return: 0 on success.
  *
@@ -56,27 +56,27 @@ void close_file(int fd)
  * If file_to cannot be created or written to - exit code 99.
  * If file_to or file_from cannot be closed - exit code 100.
  */
-int main(int argc, char *argv[])
+int main(int ac, char *av[])
 {
 	int from, to, r, w;
 	char *buffer;
 
-	if (argc != 3)
+	if (ac != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
-	buffer = create_buffer(argv[2]);
-	from = open(argv[1], O_RDONLY);
+	buffer = create_buffer(av[2]);
+	from = open(av[1], O_RDONLY);
 	r = read(from, buffer, 1024);
-	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
 		if (from == -1 || r == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Can't read from file %s\n", argv[1]);
+				"Error: Can't read from file %s\n", av[1]);
 			free(buffer);
 			exit(98);
 		}
@@ -85,13 +85,13 @@ int main(int argc, char *argv[])
 		if (to == -1 || w == -1)
 		{
 			dprintf(STDERR_FILENO,
-				"Error: Can't write to %s\n", argv[2]);
+				"Error: Can't write to %s\n", av[2]);
 			free(buffer);
 			exit(99);
 		}
 
 		r = read(from, buffer, 1024);
-		to = open(argv[2], O_WRONLY | O_APPEND);
+		to = open(av[2], O_WRONLY | O_APPEND);
 
 	} while (r > 0);
 
